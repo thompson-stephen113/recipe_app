@@ -1,0 +1,53 @@
+body {
+    font-family: "Playwrite DE Grund", Arial, sans-serif;
+    background-image: url("../images/collection_background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    position: fixed;
+    background-color: #ddd;
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+/* Table styles */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+table td, table th {
+    padding: 8px;
+    text-align: center;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+/* Ensures images maintain aspect ratio while having the same dimensions */
+table img {
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border: 1px solid black;
+    border-radius: 10px;
+}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 # Create your models here.
 class Recipe(models.Model):
@@ -9,6 +10,8 @@ class Recipe(models.Model):
         help_text="Enter ingredients, separated by a comma."
     )
     cooking_time = models.IntegerField(help_text="Enter cooking time (minutes).")
+    pic = models.ImageField(upload_to="recipes", default="no_picture.jpg")
+
 
     # Determines recipe difficulty
     @property
@@ -28,3 +31,7 @@ class Recipe(models.Model):
     # String representation
     def __str__(self):
         return str(self.name)
+    
+    # Creates the primary key of the recipe objects to become clickable
+    def get_absolute_url(self):
+        return reverse ("recipes:detail", kwargs={"pk": self.pk})

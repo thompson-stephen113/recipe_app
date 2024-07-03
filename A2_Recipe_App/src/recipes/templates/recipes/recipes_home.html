@@ -1,12 +1,20 @@
 <!DOCTYPE html>
+{% load static %}
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recipes - Home</title>
+        <link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'recipes/css/home.css' %}">
     </head>
 
     <body>
-        Welcome to Recipes
+        <div class="container">
+            <h1>Recipes</h1>
+
+            <p>Search for or add your own recipes</p>
+        </div>
     </body>
 </html>
