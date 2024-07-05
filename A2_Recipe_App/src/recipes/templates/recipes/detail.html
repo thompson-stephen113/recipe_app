@@ -1,32 +1,35 @@
 <!DOCTYPE html>
+{% extends "base.html" %}
 {% load static %}
 
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Recipes - {{object.name}}</title>
+        <title>{% block title %}Recipes - {{object.name}}{% endblock %}</title>
         <link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/detail.css' %}">
     </head>
 
     <body>
-        <h1>Details: {{object.name}}</h1>
-        
-        <div class="container">
-            <b>Ingredients: </b> {{object.ingredients}}
+        {% block content %}
+            <h1 class="detail-header">Details: {{object.name}}</h1>
+            
+            <div class="details-container">
+                <b>Ingredients: </b> {{object.ingredients}}
 
-            <br>
+                <br>
 
-            <b>Cooking Time (minutes): </b> {{object.cooking_time}}
+                <b>Cooking Time (minutes): </b> {{object.cooking_time}}
 
-            <br>
+                <br>
 
-            <b>Difficulty: </b> {{object.difficulty}}
+                <b>Difficulty: </b> {{object.difficulty}}
 
-            <br>
+                <br>
 
-            <img src="{{object.pic.url}}" alt="{{object.name}}">
-        </div>
+                <img src="{{object.pic.url}}" alt="{{object.name}}">
+            </div>
+        {% endblock %}
     </body>
 </html>

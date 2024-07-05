@@ -9,16 +9,27 @@ body {
     padding: 0;
 }
 
-h1 {
-    position: fixed;
+.recipes-header {
+    position: absolute;
     background-color: #ddd;
     width: 100%;
-    top: 0;
-    left: 0;
-    margin: 0;
+    margin-top: 62px;
     padding: 10px;
     text-align: center;
     border-bottom: 1px solid black;
+}
+
+.recipe-name {
+    color: blueviolet;
+    text-decoration: none;
+}
+
+.recipe-name:hover {
+    text-decoration: underline;
+}
+
+.recipe-name:visited {
+    color: blueviolet;
 }
 
 /* Table styles */
