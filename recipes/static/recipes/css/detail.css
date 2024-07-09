@@ -1,0 +1,39 @@
+body {
+    font-family: "Playwrite DE Grund", Arial, sans-serif;
+    background-image: url("../images/collection_background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+.detail-header {
+    background-color: #ddd;
+    width: 100%;
+    margin-top: 62px;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+img {
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+.details-container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
