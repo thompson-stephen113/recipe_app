@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Recipes - About{% endblock %}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'recipes/css/about.css' %}">
+    </head>
+
+    <body>
+        {% block content %}
+            <h1>About Me</h1>
+
+            <div class="about-container">
+                <h2 class="contact-header">Contact Info</h2>
+                
+                <div>Email: thompson.stephen113@gmail.com</div>
+
+                <div>Portfolio: <a href="thompson-stephen113.github.io/portfolio-website/" target="_blank">thompson-stephen113.github.io/portfolio-website/</a></div>
+
+                <div>LinkedIn: <a href="https://linkedin.com/in/thompson-stephen/" target="_blank">https://linkedin.com/in/thompson-stephen/</a></div>
+
+                <div>GitHub: <a href="https://github.com/thompson-stephen113" target="_blank">https://github.com/thompson-stephen113</a></div>
+
+                <div>Medium: <a href="https://medium.com/@thompson.stephen113" target="_blank">https://medium.com/@thompson.stephen113</a></div>
+            </div>
+        {% endblock %}
+    </body>
+</html>

@@ -42,6 +42,7 @@ def get_chart(chart_type, data, **kwargs):
         plt.bar(data["name"], data["cooking_time"])
         plt.xlabel("Recipe Names")
         plt.ylabel("Cooking Time (Minutes)")
+        plt.xticks(rotation=45, ha="right")
 
     elif chart_type == "#2":
         # Generates pie chart based on difficulty with difficulties as labels
@@ -54,6 +55,7 @@ def get_chart(chart_type, data, **kwargs):
         plt.plot(data["name"], data["number_of_ingredients"], marker="o")
         plt.xlabel("Recipes Names")
         plt.ylabel("Number of Ingredients")
+        plt.xticks(rotation=45, ha="right")
 
     else:
         print("Unknown chart type")

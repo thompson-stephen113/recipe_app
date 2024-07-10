@@ -1,8 +1,9 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from .models import Recipe
-from .forms import RecipesSearchForm
+from .forms import RecipesSearchForm, AddRecipeForm
 
 class RecipeModelTest(TestCase):
     def setUpTestData():
@@ -72,6 +73,7 @@ class RecipeModelTest(TestCase):
         # Compares value to expected result
         self.assertEqual(recipe.get_absolute_url(), "/collection/1")
 
+
 class RecipeFormTest(TestCase):
     # ------------------------- Search ------------------------- #
     def test_search_form_valid_data(self):
@@ -108,6 +110,7 @@ class RecipeFormTest(TestCase):
 
         # Checks if "difficulty" field label is "Difficulty"
         self.assertEqual(form.fields["difficulty"].label, "Difficulty")
+
 
 class RecipeViewTest(TestCase):
     @classmethod
@@ -199,3 +202,106 @@ class RecipeViewTest(TestCase):
 
         # Checks if response contains the first recipe name
         self.assertContains(response, "Recipe 1")
+
+
+class RecipeFormTest(TestCase):
+    # Test form validation with valid data
+    def test_add_recipe_form_valid_data(self):
+        form = AddRecipeForm(data={
+            "name": "Test Recipe",
+            "ingredients": "Test Ingredients",
+            "cooking_time": 30,
+            "pic": None     # Assuming no file for simplicity
+        })
+
+        # Form should be valid
+        self.assertTrue(form.is_valid())  
+
+    # Test form validation with no data
+    def test_add_recipe_form_no_data(self):
+        form = AddRecipeForm(data={})
+
+        # Form should be invalid
+        self.assertFalse(form.is_valid())
+
+        # Should have errors for all required fields
+        self.assertEqual(len(form.errors), 3)
+
+
+class AddRecipeViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        # Creates a test user
+        cls.user = User.objects.create_user(username="testuser", password="12345")
+
+    def setUp(self):
+        # Creates a test client and log in the user
+        self.client = Client()
+        self.client.login(username="testuser", password="12345")
+
+    # Test GET request to add_recipe view
+    def test_add_recipe_view_get(self):
+        response = self.client.get(reverse("recipes:add_recipe"))
+        
+        # Status code should be 200
+        self.assertEqual(response.status_code, 200)
+
+        # Should use the correct template
+        self.assertTemplateUsed(response, "recipes/add_recipe.html")
+
+        # Context should have AddRecipeForm
+        self.assertIsInstance(response.context["add_recipe_form"], AddRecipeForm)
+
+    # Test POST request with valid data to add_recipe view
+    def test_add_recipe_view_post_valid_data(self):
+        data = {
+            "name": "Test Recipe",
+            "ingredients": "Test Ingredients",
+            "cooking_time": 30,
+            "pic": ""  # Assuming no file for simplicity
+        }
+
+        response = self.client.post(reverse("recipes:add_recipe"), data)
+
+        # Should redirect after successful form submission
+        self.assertEqual(response.status_code, 302)
+        
+        # Should redirect to the recipe list view
+        self.assertRedirects(response, reverse("recipes:list"))
+        
+        # One recipe should be created
+        self.assertEqual(Recipe.objects.count(), 1)
+
+        # Check for success message
+        messages = list(get_messages(response.wsgi_request))
+
+        # There should be one message
+        self.assertEqual(len(messages), 1)
+
+        # Message content should be correct
+        self.assertEqual(str(messages[0]), "Recipe added successfully.")
+
+    # Tests POST request with invalid data to add_recipe view
+    def test_add_recipe_view_post_invalid_data(self):
+        data = {}
+
+        response = self.client.post(reverse("recipes:add_recipe"), data)
+
+        # Should return 200 status code
+        self.assertEqual(response.status_code, 200)
+
+        # Should use the correct template
+        self.assertTemplateUsed(response, "recipes/add_recipe.html")
+
+        # Form should be invalid
+        self.assertFalse(response.context["add_recipe_form"].is_valid())  
+
+    # Tests that add_recipe view requires login
+    def test_add_recipe_view_login_required(self):
+        # Log out the test user
+        self.client.logout()
+
+        response = self.client.get(reverse("recipes:add_recipe"))
+
+        # Should redirect to login page with next parameter set to add_recipe URL
+        self.assertRedirects(response, f"{reverse('login')}?next={reverse('recipes:add_recipe')}")

@@ -1,4 +1,5 @@
 from django import forms
+from .models import Recipe
 
 SEARCH_CHOICES = [
     ("name", "Recipe Name"),
@@ -21,3 +22,14 @@ class RecipesSearchForm(forms.Form):
         required=False,
         label="Difficulty"
     )
+
+# CBV "AddRecipeForm"
+class AddRecipeForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = [
+            "name",
+            "ingredients",
+            "cooking_time",
+            "pic"
+        ]

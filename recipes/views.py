@@ -1,16 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 import pandas as pd
 from .models import Recipe
-from .forms import RecipesSearchForm
+from .forms import RecipesSearchForm, AddRecipeForm
 from .utils import get_chart
 
 
 # FBV "home"
 def home(request):
     return render(request, "recipes/recipes_home.html")
+
+# FBV "about"
+def about(request):
+    return render(request, "recipes/about.html")
 
 # CBV "RecipeList", protected
 class RecipeListView(LoginRequiredMixin, ListView):
@@ -27,7 +32,7 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
 # FBV "search", protected
 @login_required
 def search(request):
-    # Creates an instance of RecipesSearchForm
+    # adds an instance of RecipesSearchForm
     form = RecipesSearchForm(request.POST or None)
 
     # Initializes dataframe to None
@@ -104,3 +109,33 @@ def search(request):
 
     # Loads page using "context" information
     return render(request, "recipes/search.html", context)
+
+# FBV "add_recipe"
+@login_required
+def add_recipe(request):
+
+    if request.method == "POST":
+        # Creates an instance of AddRecipeForm with the submitted data and files
+        add_recipe_form = AddRecipeForm(request.POST, request.FILES)
+
+        # Validates form data
+        if add_recipe_form.is_valid():
+            # Saves form data to database
+            add_recipe_form.save()
+
+            # Adds a success message to display to user
+            messages.success(request, "Recipe added successfully.")
+
+            # Redirects user to "add_recipe" page
+            return redirect("recipes:list")
+    else:
+        # Creates an empty form instance if request method is not POST
+        add_recipe_form = AddRecipeForm()
+
+    # Prepares data to send from view to template
+    context = {
+        "add_recipe_form": add_recipe_form
+    }
+
+    # Loads page using "context" information
+    return render(request, "recipes/add_recipe.html", context)
