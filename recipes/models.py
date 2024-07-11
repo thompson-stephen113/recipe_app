@@ -10,7 +10,7 @@ class Recipe(models.Model):
         help_text="Enter ingredients, separated by a comma."
     )
     cooking_time = models.IntegerField(help_text="Enter cooking time (minutes).")
-    pic = models.ImageField(upload_to="recipes", default="no_picture.jpg")
+    pic = models.ImageField(upload_to="media/recipes", default="no_picture.jpg")
 
 
     # Determines recipe difficulty
