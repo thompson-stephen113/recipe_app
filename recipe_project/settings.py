@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1:8000',
     'localhost',
     "pure-beach-95090-40124add3d92.herokuapp.com/",
-    "git.heroku.com/pure-beach-95090.git",
+    "git.heroku.com/hidden-island-06365.git",
 ]
 
 
