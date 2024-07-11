@@ -133,7 +133,7 @@ USE_TZ = True
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_CLOUD_NAME': 'dycsbevob',
     'CLOUDINARY_API_KEY': '845559157619573',
-    'CLOUDINARY_API_SECRET': '<your_api_secret>',
+    'CLOUDINARY_API_SECRET': 'your_api_secret',
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
