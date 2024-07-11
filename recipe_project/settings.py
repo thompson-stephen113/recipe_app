@@ -131,9 +131,9 @@ USE_I18N = True
 USE_TZ = True
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dycsbevob',
-    'API_KEY': '845559157619573',
-    'API_SECRET': 'cB24u-yS-02CbFQHo3RZpx-mUCI',
+    'CLOUDINARY_CLOUD_NAME': 'dycsbevob',
+    'CLOUDINARY_API_KEY': '845559157619573',
+    'CLOUDINARY_API_SECRET': 'cB24u-yS-02CbFQHo3RZpx-mUCI',
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
